@@ -46,6 +46,21 @@ EASY_MODE_LEVELS[0] = {
     'no_enemies': True,
 }
 
+# --- GUTTER DİNLENME ALANI ---
+# The Gutter'ın 3. bölümü. Oyuncu buradan çıkınca bir daha dönemez.
+EASY_MODE_LEVELS[3] = {
+    'name': 'THE GUTTER — Sığınak',
+    'goal_score': 0,
+    'speed_mult': 0.0,
+    'theme_index': 2,          # Gutter teması
+    'type': 'gutter_rest_area',
+    'music_file': 'calm_ambient.mp3',
+    'no_enemies': True,
+    'one_way_exit': True,      # Buradan çıkınca geri dönüş yok
+    'exit_level': 1,           # Çıkışta Industrial Zone'a (bölüm 1) geç
+    'desc': 'Gutter\'ın derinliklerindeki sığınak. Buradakilerle konuş. Sonra yola çık.',
+}
+
 # --- BÖLÜM 10 AYARI ---
 EASY_MODE_LEVELS[10] = {
     'name': 'YARGI GÜNÜ (Bölüm 10)',

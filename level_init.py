@@ -31,6 +31,7 @@ from utils import (load_sound_asset, generate_ambient_fallback,
                    generate_calm_ambient, audio_manager)
 from local_bosses import NexusBoss, AresBoss, VasilBoss
 from combat_system import PlayerHealth
+from gutter_rest_area import gutter_rest_area
 
 # ---------------------------------------------------------------------------
 # MODÜL REFERANS SİSTEMİ
@@ -212,6 +213,36 @@ def init_rest_area():
     center_x = (npc_spawn_index * (platform_width + gap)) + 200
     center_platform = Platform(center_x, LOGICAL_HEIGHT - 150, 600, 60, theme_index=4)
     m.all_platforms.add(center_platform)
+
+# =============================================================================
+# GUTTER DİNLENME ALANI BAŞLATMA
+# =============================================================================
+
+def init_gutter_rest_area():
+    """
+    The Gutter'a özgü çok katlı dinlenme alanını başlatır.
+    Manor kamera sistemi kullanılır — oyuncu haritayı özgürce gezer.
+
+    Katlar:
+      - Zemin  (Y = LH - 80)  → Pazar yeri, 4 NPC
+      - Orta   (Y = LH - 330) → Bar/atölye, 3 NPC
+      - Çatı   (Y = LH - 580) → Gizli figürler, 2 NPC
+    """
+    m = _m
+    m.camera_speed = 0
+    m.CURRENT_THEME = THEMES[2]   # Gutter teması
+
+    # Manor kamera sistemini sıfırla — oyuncu haritayı scroll ederek gezer
+    m.manor_camera_offset_x = 0
+    m.manor_camera_offset_y = 0
+
+    # Haritayı ve NPC'leri oluştur
+    gutter_rest_area.init(m)
+
+    # Oyuncu spawn noktası — giriş platformu üzeri
+    m.player_x = 200.0
+    m.player_y = float(LOGICAL_HEIGHT - 200)
+    m.y_velocity = 0
 
 # =============================================================================
 # LİMBO BAŞLATMA
@@ -400,6 +431,17 @@ def init_game():
         music_file = random.choice(REST_AREA_MUSIC) if REST_AREA_MUSIC else "calm_ambient.mp3"
         m.current_level_music = load_sound_asset(
             f"assets/music/{music_file}", generate_calm_ambient, 0.6
+        )
+        audio_manager.play_music(m.current_level_music)
+
+    elif lvl_config.get('type') == 'gutter_rest_area':
+        # ─────────────────────────────────────────────────────────────────────
+        # GUTTER DİNLENME ALANI — Çok katlı, manor kamera sistemiyle
+        # ─────────────────────────────────────────────────────────────────────
+        init_gutter_rest_area()
+        music_file = lvl_config.get('music_file', 'calm_ambient.mp3')
+        m.current_level_music = load_sound_asset(
+            f"assets/music/{music_file}", generate_calm_ambient, 0.5
         )
         audio_manager.play_music(m.current_level_music)
 

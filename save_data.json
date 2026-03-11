@@ -1,5 +1,5 @@
 {
-    "karma": -10,
+    "karma": -995,
     "saved_souls": 0,
     "easy_mode": {
         "unlocked_levels": 10,
@@ -20,11 +20,11 @@
             "1": 792,
             "2": 2468,
             "3": 8200,
-            "4": 3028,
-            "5": 3753,
-            "6": 9007,
+            "4": 3420,
+            "5": 4309,
+            "6": 9325,
             "7": 10840,
-            "8": 18760,
+            "8": 19156,
             "9": 26292
         }
     },
@@ -39,7 +39,8 @@
     "weapon_inventory": {
         "unlocked_weapons": [
             "smg",
-            "shotgun"
+            "shotgun",
+            "revolver"
         ],
         "current_ammo": {
             "revolver": 0,
